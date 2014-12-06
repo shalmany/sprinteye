@@ -1,0 +1,12 @@
+<sitemesh >
+
+	<content-processor>
+   <tag-rule-bundle class="org.sitemesh.content.tagrules.html.DivExtractingTagRuleBundle" />
+    </content-processor>
+       
+    <mapping path="/static/*" exclue="true"/>
+    <mapping path="/store/signup*" exclue="true"/>
+    <mapping path="/*" decorator="/WEB-INF/layout/basicTemplate.jsp">
+      
+    </mapping>
+</sitemesh>
