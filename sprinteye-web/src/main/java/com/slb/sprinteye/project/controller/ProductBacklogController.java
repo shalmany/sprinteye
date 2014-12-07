@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -95,12 +96,12 @@ public class ProductBacklogController {
 			  productBacklogItem=productBacklogItemRepository.findOne(productBacklogItem.getId());
 		  }
 		  
-		  productBacklogItem.setName(productBacklogItemForm.getName());
-		  productBacklogItem.setDescription(productBacklogItemForm.getDescription());
-	
+		 BeanUtils.copyProperties(productBacklogItemForm, productBacklogItem);
+		
 		  productBacklogItem= productBacklogItemRepository.save(productBacklogItem);
 		 
-		  productBacklogItemForm.setId(productBacklogItem.getId());
+		  BeanUtils.copyProperties(productBacklogItem, productBacklogItemForm);
+		  
 		   return new ResponseEntity<ProductBacklogItemForm>(productBacklogItemForm,HttpStatus.OK);
 	    }
 }

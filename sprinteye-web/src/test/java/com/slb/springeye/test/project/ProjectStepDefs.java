@@ -1,5 +1,7 @@
 package com.slb.springeye.test.project;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
@@ -51,15 +54,24 @@ public class ProjectStepDefs {
 				.dispatchOptions(true).build();
 		signupHelperSteps.setMockMvc(mockMvc);
 		projectHelperSteps.setMockMvc(mockMvc);
+		projectHelperSteps.setup();
 		
 
 	}
 
 
 
-	@Given("the User complete all fields of project form")
-	public void given_the_User_complete_all_fields_of_project_form() {
-		projectHelperSteps.given_the_User_complete_all_fields_of_project_form();
+	
+	
+	@Given("the User filled the  name of project with (.*)")
+	public void given_the_User_filled_the_name_of_project_with(String name) {
+		projectHelperSteps.given_the_User_filled_the_name_of_project_with(name);
+
+	}
+	
+	@Given("the User filled the  description of project with (.*)")
+	public void given_the_User_filled_the_description_of_project_with(String description) {
+		projectHelperSteps.given_the_User_filled_the_description_of_project_with(description);
 
 	}
 
@@ -74,6 +86,20 @@ public class ProjectStepDefs {
 	public void then_should_register_the_new_project() throws Exception {
 
 		projectHelperSteps.then_should_register_the_new_project();
+
+	}
+	
+	@Then("should show validation Error for Name field of project")
+	public void then_should_show_validation_Error_for_name_field()
+			throws Exception {
+
+		projectHelperSteps.getResultActions()
+				.andExpect(status().isBadRequest())
+				.andExpect(
+						MockMvcResultMatchers
+								.jsonPath("$.fieldErrors[?(@.field=='%s')]",
+										"name")
+								.exists());
 
 	}
 	

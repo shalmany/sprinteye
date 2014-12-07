@@ -15,11 +15,8 @@ import org.teste.slb.TestUtil;
 
 import com.slb.springeye.test.signup.SignupHelperSteps;
 import com.slb.sprinteye.project.view.ProjectForm;
-import com.slb.sprinteye.user.view.SignupForm;
 
 import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 
 
 @Component
@@ -34,12 +31,26 @@ public class ProjectHelperSteps {
 	SignupHelperSteps signupHelperSteps;
 
 	private MockHttpSession session;
+	
+	public void setup(){
+		projectForm = new ProjectForm();
+	}
 
 	public void given_the_User_complete_all_fields_of_project_form() {
-		projectForm = new ProjectForm();
+		
 		projectForm.setName("New Project");
 		projectForm.setDescription("desciption project");
 
+	}
+
+	
+	public void given_the_User_filled_the_name_of_project_with(String name) {
+		projectForm.setName(name);
+	}
+	
+	
+	public void given_the_User_filled_the_description_of_project_with(String description) {
+		projectForm.setDescription(description);
 	}
 
 	
@@ -78,6 +89,16 @@ public class ProjectHelperSteps {
 
 	public void setMockMvc(MockMvc mockMvc) {
 		this.mockMvc = mockMvc;
+	}
+
+
+	public ResultActions getResultActions() {
+		return resultActions;
+	}
+
+
+	public void setResultActions(ResultActions resultActions) {
+		this.resultActions = resultActions;
 	}
 	
 	

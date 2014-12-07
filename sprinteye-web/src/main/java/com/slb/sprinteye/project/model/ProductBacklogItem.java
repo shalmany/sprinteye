@@ -2,6 +2,8 @@ package com.slb.sprinteye.project.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -11,7 +13,9 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.slb.core.model.BaseEntity;
+import com.slb.sprinteye.user.model.SocialMediaEnum;
 
 @Entity
 @Table(name = "product_backlog_item")
@@ -36,6 +40,17 @@ public class ProductBacklogItem extends  BaseEntity<Long> {
 	@NotEmpty
  	@Column( length = 500)
     private String description;
+	
+
+    private Integer businessValue;
+	
+
+    private Integer estimate;
+    
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "item_type", nullable=false)
+    private ItemTypeEnum itemTypeEnum;
 
 	public Long getId() {
 		return id;
@@ -68,6 +83,23 @@ public class ProductBacklogItem extends  BaseEntity<Long> {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+	public Integer getBusinessValue() {
+		return businessValue;
+	}
+
+	public void setBusinessValue(Integer businessValue) {
+		this.businessValue = businessValue;
+	}
+
+	public Integer getEstimate() {
+		return estimate;
+	}
+
+	public void setEstimate(Integer estimate) {
+		this.estimate = estimate;
+	}
+	
 	
 	
 }

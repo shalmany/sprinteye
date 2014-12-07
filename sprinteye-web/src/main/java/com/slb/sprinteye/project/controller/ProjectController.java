@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -80,12 +81,13 @@ public class ProjectController {
 			   project=projectRepository.findOne(project.getId());
 		  }
 		  
-		  project.setName(projectForm.getName());
-		  project.setDescription(projectForm.getDescription());
+		  BeanUtils.copyProperties(projectForm, project);
 	
 		   project= projectService.save(project);
+		   
+		   BeanUtils.copyProperties(project, projectForm);
 		   model.addAttribute(project);
-		   projectForm.setId(project.getId());
+		  
 		   return new ResponseEntity<ProjectForm>(projectForm,HttpStatus.OK);
 	    }
 	 
