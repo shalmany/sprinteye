@@ -14,7 +14,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.teste.slb.TestUtil;
 
 import com.slb.springeye.test.signup.SignupHelperSteps;
-import com.slb.sprinteye.project.view.ProjectForm;
+import com.slb.sprinteye.project.view.ProjectDTO;
 
 import cucumber.api.java.en.Given;
 
@@ -25,7 +25,7 @@ public class ProjectHelperSteps {
 	private MockMvc mockMvc;
 	private ResultActions resultActions;
 
-	private ProjectForm projectForm;
+	private ProjectDTO projectForm;
 
 	@Autowired
 	SignupHelperSteps signupHelperSteps;
@@ -33,7 +33,7 @@ public class ProjectHelperSteps {
 	private MockHttpSession session;
 	
 	public void setup(){
-		projectForm = new ProjectForm();
+		projectForm = new ProjectDTO();
 	}
 
 	public void given_the_User_complete_all_fields_of_project_form() {

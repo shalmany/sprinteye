@@ -2,7 +2,7 @@ package com.slb.sprinteye.project.view;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-public class ProjectForm {
+public class ProjectDTO {
 
 	
     private Long id;

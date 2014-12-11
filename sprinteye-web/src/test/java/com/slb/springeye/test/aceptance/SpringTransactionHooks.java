@@ -22,6 +22,8 @@ public class SpringTransactionHooks {
 	@Resource
 	private PlatformTransactionManager transactionManager;
 	private TransactionStatus transactionStatus;
+	
+	
 
 	@Before(value = { "@txn" }, order = 100)
 	public void startTransaction() {
@@ -30,7 +32,11 @@ public class SpringTransactionHooks {
 
 	@After(value = { "@txn" }, order = 100)
 	public void rollBackTransaction() {
+		try{
+		transactionStatus.flush();
+		}finally{
 		transactionManager.rollback(transactionStatus);
+		}
 	}
 
 }

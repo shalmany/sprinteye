@@ -1,12 +1,14 @@
 package com.slb.sprinteye.project.view;
 
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
 import com.slb.sprinteye.project.model.ItemTypeEnum;
+import com.slb.sprinteye.project.model.SprintBacklog;
 
-public class ProductBacklogItemForm {
+public class ProductBacklogItemDTO {
 
 	 private Long id;
 		
@@ -23,6 +25,19 @@ public class ProductBacklogItemForm {
 	 	
 
 	     private Integer estimate;
+	     
+	     
+	  	private SprintBacklogDTO sprintBacklogDTO;
+
+
+		public SprintBacklogDTO getSprintBacklogDTO() {
+			return sprintBacklogDTO;
+		}
+
+
+		public void setSprintBacklogDTO(SprintBacklogDTO sprintBacklogDTO) {
+			this.sprintBacklogDTO = sprintBacklogDTO;
+		}
 
 
 		public Long getId() {

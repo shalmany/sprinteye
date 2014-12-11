@@ -2,6 +2,8 @@ package com.slb.springeye.test.project;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.hamcrest.Matchers;
@@ -20,9 +22,8 @@ import org.teste.slb.TestUtil;
 
 import com.slb.springeye.test.signup.SignupHelperSteps;
 import com.slb.sprinteye.project.model.ItemTypeEnum;
-import com.slb.sprinteye.project.view.ProductBacklogItemForm;
+import com.slb.sprinteye.project.view.ProductBacklogItemDTO;
 
-import cucumber.api.DataTable;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -47,7 +48,7 @@ public class ProductBacklogStepDef {
 	@Resource
 	private ApplicationContext ctx;
 
-	private ProductBacklogItemForm productBacklogItemForm;
+	private ProductBacklogItemDTO productBacklogItemForm;
 
 	@Before
 	public void setUp() {
@@ -57,7 +58,7 @@ public class ProductBacklogStepDef {
 				.dispatchOptions(true).build();
 		signupHelperSteps.setMockMvc(mockMvc);
 		projectHelperSteps.setMockMvc(mockMvc);
-		productBacklogItemForm = new ProductBacklogItemForm();
+		productBacklogItemForm = new ProductBacklogItemDTO();
 	}
 
 	@Given("that fill (.*) in name field  of product backlog item form")
@@ -167,5 +168,25 @@ public class ProductBacklogStepDef {
 								.exists());
 
 	}
+	
+	@Given("that Product Backlog was created")
+	public void given__that_Product_Backlog_was_created(List<ProductBacklogItemDTO> entities) throws Exception {
+		
+		for (ProductBacklogItemDTO productBacklogItemForm : entities) {
+			this.given_that_the_user_has_filled_the_fields_of_product_backlog_item_form_with_data_below(productBacklogItemForm);
+            this.when_add_item_to_product_backlog();
+			this.then_should_register_the_new_item_to_product_backlog();
+		}
+		
 
+	}
+
+	@Given("that the user has filled the fields  of product backlog item form with data below")
+	public void given_that_the_user_has_filled_the_fields_of_product_backlog_item_form_with_data_below(List<ProductBacklogItemDTO> entities) {
+		given_that_the_user_has_filled_the_fields_of_product_backlog_item_form_with_data_below(entities.get(0));
+	}
+
+	public void given_that_the_user_has_filled_the_fields_of_product_backlog_item_form_with_data_below(ProductBacklogItemDTO productBacklogItemForm) {
+		this.productBacklogItemForm =productBacklogItemForm;
+	}
 }

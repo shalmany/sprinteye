@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.slb.sprinteye.project.model.Project;
 import com.slb.sprinteye.project.repository.ProjectRepository;
 import com.slb.sprinteye.project.service.ProjectService;
-import com.slb.sprinteye.project.view.ProjectForm;
+import com.slb.sprinteye.project.view.ProjectDTO;
 import com.slb.sprinteye.user.model.User;
 import com.slb.sprinteye.user.repository.UserRepository;
 
@@ -70,7 +70,7 @@ public class ProjectController {
 	 
 	  @RequestMapping(value={"project/save"}, method=RequestMethod.POST,produces = MediaType.APPLICATION_JSON_VALUE)
 	   @ResponseBody
-	    public ResponseEntity<ProjectForm> save(@RequestBody @Valid ProjectForm projectForm,@ModelAttribute("user") User user,
+	    public ResponseEntity<ProjectDTO> save(@RequestBody @Valid ProjectDTO projectForm,@ModelAttribute("user") User user,
          WebRequest request,Model model)   {
 		  Project project = new Project();
 		  project.setId(projectForm.getId());
@@ -88,7 +88,7 @@ public class ProjectController {
 		   BeanUtils.copyProperties(project, projectForm);
 		   model.addAttribute(project);
 		  
-		   return new ResponseEntity<ProjectForm>(projectForm,HttpStatus.OK);
+		   return new ResponseEntity<ProjectDTO>(projectForm,HttpStatus.OK);
 	    }
 	 
 }

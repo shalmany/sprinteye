@@ -19,7 +19,7 @@ public class ProjectService {
 	
 	public Project save(Project project){
 		
-		project =projectRepository.save(project);
+		project =projectRepository.saveAndFlush(project);
 		return project;
 	}
 	
